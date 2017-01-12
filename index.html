@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+  
+  <title>Sporty Headwear</title>
+   <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+   <!-- Navbar -->
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><font color="red"><b>SportyHeadwear</b></font></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href='index.html'><font color="red"><b>Home</b></font></a></li>
+      <li><a href="#"><font color="red"><b>New Releases</b></font></a></li>
+	  <li><a href='nfl.html'><font color="red"><b>NFL</b></font></a></li>
+      <li><a href='mlb.html'><font color="red"><b>MLB</b></font></a></li>
+	  <li><a href="#"><font color="red"><b>About Us</b></font></a></li>
+      <li><a href="#"><font color="red"><b>Contact Us</b></font></a></li>
+   </ul>
+  </div>
+</nav>
+  
+  <!-- Front Cover --> 
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <div style="text-align: left;"><img src="title.png" align="top" style="width:1200px;height:130px;"></div>
+		<div class="w3-content w3-section" style="max-width:500px">
+			<img class="mySlides w3-animate-fading" src="hats/NFL/sanfrancisco49ers.jpg">
+			<img class="mySlides w3-animate-fading" src="hats/MLB/stlouis-cardinals.jpg">
+			<img class="mySlides w3-animate-fading" src="hats/NFL/atlanta-falcons.jpg">
+			<img class="mySlides w3-animate-fading" src="hats/MLB/anaheim-angels.jpg">
+        </div>
+        <div class="row center">
+          <a href="#" id="download-button" class="btn-large waves-effect waves-light teal lighten-1"><font color="black"><b>Browse More Hats!</b></font></a>
+        </div>
+        <br><br>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+	var myIndex = 0;
+	carousel();
+
+	function carousel() {
+		var i;
+		var x = document.getElementsByClassName("mySlides");
+		for (i = 0; i < x.length; i++) {
+		   x[i].style.display = "none";  
+		}
+		myIndex++;
+		if (myIndex > x.length) {myIndex = 1}    
+		x[myIndex-1].style.display = "block";  
+		setTimeout(carousel, 9000);    
+	}
+</script>
+
+  <!-- Icon Section -->
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        <div class="col s12 m4">
+		<div class="icon-block">
+          <div class="panel panel-default">
+            <h2 class="center black-text"><i class="material-icons">shop</i></h2>
+            <h5 class="center"><font color="black"><b>Cheapest</b></font></h5>
+            <p class="center"><font color="black">We always provide the cheapest prices compared to other stores! No stores can beat us!</font></p>
+          </div>
+        </div>
+		</div>
+
+        <div class="col s12 m4">
+		<div class="icon-block">
+          <div class="panel panel-default">
+            <h2 class="center black-text"><i class="material-icons">new_releases</i></h2>
+            <h5 class="center"><font color="black"><b>New Releases every week</b></font></h5>
+            <p class="center"><font color="black">We always contain new hats every week! Therefore, new styles every week! 52 weeks in 365 days, so new 52 hats! No one can beat that!</font></p>
+          </div>
+        </div>
+		</div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+		  <div class="panel panel-default">
+            <h2 class="center black-text"><i class="material-icons">credit_card</i></h2>
+            <h5 class="center"><font color="black"><b>Safe and Secure Payments</b></font></h5>
+            <p class="center"><font color="black">Our goal is to provide the safest and best ways for you to purchase your hat(s)! Trust us!</font></p>
+          </div>
+		  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <!--Footer -->
+  <footer class="page-footer black">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About the Company</h5>
+          <p class="grey-text text-lighten-4">We are a team that inspires people to buy hats. </p>
+        </div>
+        
+        <div class="col l3 s12">
+          <h5 class="white-text">Location</h5>
+          <ul>
+            <li><a class="white-text" href="#!">1503 Hat St., Hatocity CA 93241</a></li>
+          </ul>
+        </div>
+        
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Follow Us!</a></li>
+            <li><a class="white-text" href="#!">Email Us!</a></li>
+            <li><a class="white-text" href="#!">Call Us!</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      <!--Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>-->
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--<script src="../../dist/js/materialize.js"></script>-->
+  <script src="js/init.js"></script>
+  </body>
+</html>

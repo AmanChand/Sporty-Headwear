@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  
+  <title>MLB Products</title>
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  
+  <script type = "text/javascript">
+      
+      //Calculate Total
+      /*function itemNumber() 
+      {
+          var a = 4;
+          document.getElementById("demo").innerHTML = a * a;
+      } */
+    
+    var clicks = 1; //Global variable count number AddToCart
+      
+      //Add price to the item
+      function AddPriceObject(itemToPrice)
+      {
+          var TheCartItemPrice = document.getElementById('cartItemPrice');
+          var TheCartItem = document.getElementById("CartItem" + itemToPrice);
+          var ThePriceDiv = document.createElement('div');
+          var ThePrice = document.createTextNode("$" + TheCartItem.getAttribute("data-price"));
+          ThePriceDiv.id = 'PriceItem' + itemToPrice;
+          ThePriceDiv.appendChild(ThePrice);
+          TheCartItemPrice.appendChild(ThePriceDiv);
+      }
+      
+      //Quantity of the item
+      function AddQuantityObject(item)
+      {
+          //clicks++;
+          var TheCartItemQuantity = document.getElementById('cartItemQuantity');
+          var TheQuantityDiv = document.createElement('div');
+          var TheQuantity = document.createTextNode("Quantity: " + clicks);
+          TheQuantityDiv.id = 'QuantityItem' + item;
+          TheQuantityDiv.appendChild(TheQuantity);
+          TheCartItemQuantity.appendChild(TheQuantityDiv);
+      }
+      
+      //Display Total item
+      function AddTotalObject(price)
+      {  
+          var TheCartItemTotal = document.getElementById('cartItemTotal');
+          var TheCartTotal = document.getElementById("CartItem" + price);
+          var TheTotalDiv = document.createElement('div');
+          //var TheTotal = document.createTextNode("Total:");
+          var TheTotal = document.createTextNode("Subtotal: " + "$" + TheCartTotal.getAttribute("data-price") * clicks);
+          TheTotalDiv.id = 'TotalItem' + price;
+          TheTotalDiv.appendChild(TheTotal);
+          TheCartItemTotal.appendChild(TheTotalDiv);
+      }
+      
+      //Remove item from cart
+      function RemoveCartItem(item)
+      {
+          //var ItemId = 'CartItem' + item;
+          //var RemoveId = 'RemoveItem' + item;
+          var obj = document.getElementById('CartItem' + item);
+          obj.parentNode.removeChild(obj);
+          
+          obj = document.getElementById('RemoveItem' + item);
+          obj.parentNode.removeChild(obj);
+          
+          obj = document.getElementById('PriceItem' + item);
+          obj.parentNode.removeChild(obj);
+          
+          obj = document.getElementById('QuantityItem' + item);
+          obj.parentNode.removeChild(obj);
+          
+          obj = document.getElementById('TotalItem' + item);
+          obj.parentNode.removeChild(obj);
+      }
+      
+      //Display added or remove item
+      function AddRemoveObject(itemToRemove)
+      {
+          var TheCartItemRemove = document.getElementById('cartItemRemove');
+          var TheRemoveDiv = document.createElement('div');
+          var TheRemoveImage = document.createElement('img');
+          TheRemoveDiv.id = 'RemoveItem' + itemToRemove;
+          TheRemoveImage.src = "images/remove.png";
+          TheRemoveImage.height = 20;
+          TheRemoveImage.onclick = function() {RemoveCartItem(itemToRemove);};
+          TheRemoveDiv.appendChild(TheRemoveImage);
+          TheCartItemRemove.appendChild(TheRemoveDiv);
+      }
+      
+     /* //Show cart total
+      function ShowTotal(priceItem)
+      {
+          //var ThePrice = document.getElementById('cartItemTotal');
+          
+          var price = AddTotalObject(priceItem);
+          var old_price = document.getElementById('total_sum').value;
+          var new_price = parseFloat(old_price) + parseFloat(price);
+          document.getElementById('total_sum').value = new_price;
+          document.createElementById('cartTotal').innerHTML = new_price;
+
+          var ThePriceNodeList = ThePrice.getElementsByTagName('div');
+          
+          for(i = 0; i < ThePriceNodeList.length; i++)
+          {
+              //Positition Price Item
+              ThePriceNodeList[i].style.position = "absolute";
+              ThePriceNodeList[i].style.top = (120 * i) + 50 +"px";
+              ThePriceNodeList[i].style.left = (0) +"px";
+          } 
+      }*/
+          
+      function ShowCartItems()
+      {
+          var TheCartItems = document.getElementById('cartItemImages');
+          var TheCartItemRemove = document.getElementById('cartItemRemove');
+          var TheCartItemPrice = document.getElementById('cartItemPrice');
+          var TheCartItemQuantity = document.getElementById('cartItemQuantity');
+          var TheCartItemTotal = document.getElementById('cartItemTotal');
+          
+          var TheRemoveNodeList = TheCartItemRemove.getElementsByTagName('div');
+          var TheImageNodeList = TheCartItems.getElementsByTagName('div');
+          var ThePriceNodeList = TheCartItemPrice.getElementsByTagName('div');
+          var TheQuantityNodeList = TheCartItemQuantity.getElementsByTagName('div');
+          var TheTotalNodeList = TheCartItemTotal.getElementsByTagName('div');
+          
+          for(i = 0; i < TheImageNodeList.length; i++)
+          {
+              //Node List
+              TheImageNodeList[i].style.position = "absolute";
+              TheImageNodeList[i].style.top = (120 * i) +"px";
+              TheImageNodeList[i].style.left = (0) +"px";
+              
+              //Remove Node List
+              TheRemoveNodeList[i].style.position = "absolute";
+              TheRemoveNodeList[i].style.top = (120 * i) + 50 +"px";
+              TheRemoveNodeList[i].style.left = (0) +"px";
+              
+              //Positition Price Item
+              ThePriceNodeList[i].style.position = "absolute";
+              ThePriceNodeList[i].style.top = (120 * i) + 50 +"px";
+              ThePriceNodeList[i].style.left = (0) +"px";
+              
+              //Positition Quantity Item
+              TheQuantityNodeList[i].style.position = "absolute";
+              TheQuantityNodeList[i].style.top = (120 * i) + 50 +"px";
+              TheQuantityNodeList[i].style.left = (0) +"px";
+              
+              //Positition Total Item
+              TheTotalNodeList[i].style.position = "absolute";
+              TheTotalNodeList[i].style.top = (120 * i) + 50 +"px";
+              TheTotalNodeList[i].style.left = (0) +"px";
+          }
+      }
+      
+      //Find items on shopping cart
+      function FindIfIdExists(obj, id)
+      {
+          var TheNodeList = obj.getElementsByTagName('div');
+          for(NodeNumber = 0; NodeNumber < TheNodeList.length; NodeNumber++)
+          {
+              if(TheNodeList[NodeNumber].id === id)
+              {
+                  return NodeNumber + 1;
+              }
+          }
+          return 0;
+      }
+      
+      //Continue shopping
+      function ContinueShopping()
+      {
+          document.getElementById('products').style.visibility='visible';
+          document.getElementById('TheCart').style.visibility='hidden';
+      }
+      
+      //Submit order
+      function SubmitOrder()
+      {
+          document.getElementById('ThankYouForYourOrder').style.visibility='visible';
+          document.getElementById('TheCart').style.visibility='hidden';
+      }
+      
+      //Add item to cart
+      function AddToCart(itemToAdd)
+      {   
+          var TheCartItemImages = document.getElementById('cartItemImages');
+          var FoundNodeCount = FindIfIdExists(TheCartItemImages, "CartItem" + itemToAdd);
+          
+          if(FoundNodeCount === 0)
+          {
+              var TheCardItemToAdd = document.getElementById(itemToAdd).cloneNode(true);
+              TheCardItemToAdd.id = "CartItem" + itemToAdd;
+              TheCardItemToAdd.childNodes[1].height = 75;
+              TheCartItemImages.appendChild(TheCardItemToAdd);
+              
+              AddRemoveObject(itemToAdd);
+              AddPriceObject(itemToAdd );
+              AddQuantityObject(itemToAdd);
+              AddTotalObject(itemToAdd);
+          }
+          
+          //Display cart items
+          ShowCartItems();
+          
+          //Hide products and show the cart
+          document.getElementById('products').style.visibility='hidden';
+          document.getElementById('TheCart').style.visibility='visible'; 
+      }
+  </script>
+</head>
+
+<body>
+ <!-- Navbar -->
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><font color="red"><b>SportyHeadwear</b></font></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href='index.html'><font color="red"><b>Home</b></font></a></li>
+      <li><a href="#"><font color="red"><b>New Releases</b></font></a></li>
+	  <li><a href='nfl.html'><font color="red"><b>NFL</b></font></a></li>
+      <li><a href='mlb.html'><font color="red"><b>MLB</b></font></a></li>
+	  <li><a href="#"><font color="red"><b>About Us</b></font></a></li>
+      <li><a href="#"><font color="red"><b>Contact Us</b></font></a></li>
+   </ul>
+  </div>
+</nav>
+
+<div id="products" style='visibility: visible'>
+
+  <div id="main">
+	<div align="center">
+	<table border="1">
+	<tr>
+
+	<td>
+	<div id="001" data-price="35.00" >
+	<img src="hats/MLB/anaheim-angels.jpg" style="width:150px;height:100px;">
+	<p>Anaheim Angels<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("001")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="002" data-price="35.00" >
+	<img src="hats/MLB/arixona-diamonbacks.jpg" style="width:150px;height:100px;">
+	<p>Arizona Diamonbacks<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("002")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="003" data-price="35.00" >
+	<img src="hats/MLB/atlanta-braves.jpg" style="width:150px;height:100px;">
+	<p>Atlanta Braves<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("003")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="004" data-price="35.00" >
+	<img src="hats/MLB/baltimore-orioles.jpg" style="width:150px;height:100px;">
+	<p>Baltimore Orioles<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("004")'>Add to Cart</button></p>
+	</td>
+	
+
+	<td>
+	<div id="005" data-price="35.00" >
+	<img src="hats/MLB/boston-redsox.jpg" style="width:150px;height:100px;">
+	<p>Boston Red Soxs<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("005")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="006" data-price="35.00" >
+	<img src="hats/MLB/chicago-cubs.jpg" style="width:150px;height:100px;">
+	<p>Chicago Cubs<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("006")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="007" data-price="35.00" >
+	<img src="hats/MLB/chicago-whitesox.jpg" style="width:150px;height:100px;">
+	<p>Chicago White Soxs<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("007")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="008" data-price="35.00" >
+	<img src="hats/MLB/cincinnati-reds.jpg" style="width:150px;height:100px;">
+	<p>Cincinnati Reds<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("008")'>Add to Cart</button></p>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<div id="009" data-price="35.00" >
+	<img src="hats/MLB/cleveland-indians.jpg" style="width:150px;height:100px;">
+	<p>Cleveland Indians<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("009")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="010" data-price="35.00" >
+	<img src="hats/MLB/colorado-rockies.jpg" style="width:150px;height:100px;">
+	<p>Denver Broncos<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("010")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="011" data-price="35.00" >
+	<img src="hats/MLB/detroit-tigers.jpg" style="width:150px;height:100px;">
+	<p>Detroit Lions<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("011")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="012" data-price="35.00" >
+	<img src="hats/MLB/houston-astros.jpg" style="width:150px;height:100px;">
+	<p>Houston Astros<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("012")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="013" data-price="35.00" >
+	<img src="hats/MLB/kansascity-royals.jpg" style="width:150px;height:100px;">
+	<p>Kansas City Royals<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("013")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="014" data-price="35.00" >
+	<img src="hats/MLB/losangeles-dodgers.jpg" style="width:150px;height:100px;">
+	<p>Los Angeles Dodgers<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("014")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="015" data-price="35.00" >
+	<img src="hats/MLB/miami-marlins.jpg" style="width:150px;height:100px;">
+	<p>Miami Marlins<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("015")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="016" data-price="35.00" >
+	<img src="hats/MLB/milwaukee-brewers.jpg" style="width:150px;height:100px;">
+	<p>Milwaukee Brewers<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("016")'>Add to Cart</button></p>
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+	<div id="017" data-price="35.00" >
+	<img src="hats/MLB/minnesota-twins.jpg" style="width:150px;height:100px;">
+	<p>Minnesota Twins<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("017")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="018" data-price="35.00" >
+	<img src="hats/MLB/new york-mets.jpg" style="width:150px;height:100px;">
+	<p>New York Mets<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("018")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="019" data-price="35.00" >
+	<img src="hats/MLB/newyork-yankees.jpg" style="width:150px;height:100px;">
+	<p>New York Yankees<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("019")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="020" data-price="35.00" >
+	<img src="hats/MLB/oakland-As.jpg" style="width:150px;height:100px;">
+	<p>Oakland A's<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("020")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="021" data-price="35.00" >
+	<img src="hats/MLB/philadelphia-phillies.jpg" style="width:150px;height:100px;">
+	<p>Philadelphia Phillies<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("021")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="022" data-price="35.00" >
+	<img src="hats/MLB/pittsburgh-pirates.jpg" style="width:150px;height:100px;">
+	<p>Pittsburgh Pirates<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("022")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="023" data-price="35.00" >
+	<img src="hats/MLB/sandiego-padres.jpg" style="width:150px;height:100px;">
+	<p>San Diego Padres<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("023")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="024" data-price="35.00" >
+	<img src="hats/MLB/sanfrancisco-giants.jpg" style="width:150px;height:100px;">
+	<p>San Francisco Giants<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("024")'>Add to Cart</button></p>
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+	<div id="025" data-price="35.00" >
+	<img src="hats/MLB/seattle-mariners.jpg" style="width:150px;height:100px;">
+	<p>Seattle Mariners<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("025")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="026" data-price="35.00" >
+	<img src="hats/MLB/stlouis-cardinals.jpg" style="width:150px;height:100px;">
+	<p>St Louis Cardinals<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("026")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="027" data-price="35.00" >
+	<img src="hats/MLB/tampabay-rays.jpg" style="width:150px;height:100px;">
+	<p>Tampa Bay Rays<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("027")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="028" data-price="35.00" >
+	<img src="hats/MLB/texas-rangers.jpg" style="width:150px;height:100px;">
+	<p>Texas Rangers<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("028")'>Add to Cart</button></p>
+	</td>
+
+	<td>	
+	<div id="029" data-price="35.00" >
+	<img src="hats/MLB/toronto-bluejays.jpg" style="width:150px;height:100px;">
+	<p>Toronto Blue Jays<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("029")'>Add to Cart</button></p>
+	</td>
+
+	<td>
+	<div id="030" data-price="35.00" >
+	<img src="hats/MLB/washington-nationals.jpg" style="width:150px;height:100px;">
+	<p>Washington Nationals<br>
+	   $35.00</p>
+	<p><button type="Add to Cart" onclick='AddToCart("030")'>Add to Cart</button></p>
+	</td>
+
+	
+	</tr>
+	</table>
+	</div> 
+	
+	<div id="TheCart" style='visibility: hidden'>
+        <div style="position:absolute; align:right; font-size:44pt; left:150px; top:5px">
+            Shopping Cart
+        </div>
+        <!--
+        <div style="position:absolute; left:475px; top:50px">
+            <img src="continue.jpg" id="clicks" height="43" onclick='ContinueShopping()'>
+        </div>
+        -->
+        
+        <!-- Total button -->
+         <div style="position:absolute; left:500px; top:50px">
+             <button type="button" onclick="ContinueShopping()">Continue Shopping</button>
+        </div>
+        
+        <!-- Submit button -->
+         <div style="position:absolute; left:600px; top:300px">
+             <button type="button" onclick="SubmitOrder()">Submit Order</button>
+        </div>
+        
+        <!-- Total button -->
+         <div style="position:absolute; left:350px; top:400px">
+             <button type="button" onclick="myTotal()">Calculate Total</button>
+             <p id="demo"></p>
+        </div>
+        
+        <div id="cartItemImages" style="position: absolute; left: 50px; top: 150px"></div>
+        <div id="cartItemRemove" style="position: absolute; left: 200px; top: 150px"></div>
+        <div id="cartItemPrice" style="position: absolute; left: 250px; top: 150px"></div>
+        <div id="cartItemQuantity" style="position: absolute; left: 350px; top: 150px"></div>
+        <div id="cartItemTotal" style="position: absolute; left: 450px; top: 150px"></div>
+        <div id="cartTotal" style="position: absolute; left: 350px; top: 125px">Order Total</div>
+        <input type="hidden" id="total_sum" value="0" />
+    </div>
+    
+    <!-- Thank you for shopping -->
+    <div id="ThankYouForYourOrder" style='visibility: hidden; font-size: 50pt'>
+        <p>Thank you for your order!</p>
+    </div>
+	
+	
+  <!--Footer -->
+  <footer class="page-footer black">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About the Company</h5>
+          <p class="grey-text text-lighten-4">We are a team that inspires people to buy hats. </p>
+        </div>
+        
+        <div class="col l3 s12">
+          <h5 class="white-text">Location</h5>
+          <ul>
+            <li><a class="white-text" href="#!">1503 Hat St., Hatocity CA 93241</a></li>
+          </ul>
+        </div>
+        
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Follow Us!</a></li>
+            <li><a class="white-text" href="#!">Email Us!</a></li>
+            <li><a class="white-text" href="#!">Call Us!</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      <!--Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>-->
+      </div>
+    </div>
+  </footer>
+  </div>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--<script src="../../dist/js/materialize.js"></script>-->
+  <script src="js/init.js"></script>
+
+</body>
+</html> 
